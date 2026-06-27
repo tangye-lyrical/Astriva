@@ -32,11 +32,6 @@
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-jwt</artifactId>
         </dependency>
-        <!-- 公共模块：AjaxResult 等 -->
-        <dependency>
-            <groupId>cn.astriva</groupId>
-            <artifactId>Astriva-Common</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
