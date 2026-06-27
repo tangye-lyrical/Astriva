@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.astriva</groupId>
+        <artifactId>Astriva-Framework</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>Astriva-Framework-WebMvc</artifactId>
+    <description>『星驰』WebMvc子模块 —— 提供Web相关功能的集成与支持</description>
+
+    <dependencies>
+        <!-- Spring Web：提供Web应用的基础支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- Sa-Token 权限认证（非 optional — 全局异常处理器需运行时捕获其异常） -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot3-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-redis-template</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-jwt</artifactId>
+        </dependency>
+        <!-- 公共模块：AjaxResult 等 -->
+        <dependency>
+            <groupId>cn.astriva</groupId>
+            <artifactId>Astriva-Common</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

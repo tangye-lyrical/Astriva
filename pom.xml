@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.15</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>cn.astriva</groupId>
+    <artifactId>Astriva</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>Astriva</name>
+    <description>『星辰之远，驰速之快』星驰快速开发模板</description>
+
+    <!-- 模块管理 -->
+    <modules>
+        <module>Astriva-Admin</module>
+        <module>Astriva-Common</module>
+        <module>Astriva-Framework</module>
+        <module>Astriva-Service</module>
+    </modules>
+
+    <!-- 版本管理 -->
+    <properties>
+        <!-- JDK版本 -->
+        <java.version>21</java.version>
+        <!-- 子模块版本 -->
+        <project.version>1.0.0</project.version>
+        <!-- Hutool -->
+        <hutool.version>5.8.38</hutool.version>
+        <!-- Sa-Token -->
+        <satoken.version>1.45.0</satoken.version>
+        <!-- MyBatis-Plus -->
+        <mybatis-plus.version>3.5.15</mybatis-plus.version>
+        <!-- SpringDoc -->
+        <springdoc.version>2.8.16</springdoc.version>
+    </properties>
+
+    <!-- 依赖管理 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- ================= 第三方依赖 ================= -->
+            <!-- Hutool Bom：使用最多的Java工具类库 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- MyBatisPlus Bom：社区广泛的ORM框架，简化数据库操作 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-bom</artifactId>
+                <version>${mybatis-plus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <version>${satoken.version}</version>
+            </dependency>
+            <!-- Sa-Token 整合 RedisTemplate -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis-template</artifactId>
+                <version>${satoken.version}</version>
+            </dependency>
+            <!-- Sa-Token 整合 jwt -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-jwt</artifactId>
+                <version>${satoken.version}</version>
+            </dependency>
+            <!-- SpringDoc Bom：提供API文档生成功能 -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <!-- ================= 项目依赖 ================= -->
+            <!-- 公共模块 -->
+            <dependency>
+                <groupId>cn.astriva</groupId>
+                <artifactId>Astriva-Common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 启动模块 -->
+            <dependency>
+                <groupId>cn.astriva</groupId>
+                <artifactId>Astriva-Admin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 『框架模块』 ⇒ SaToken配置 -->
+            <dependency>
+                <groupId>cn.astriva</groupId>
+                <artifactId>Astriva-Framework-SaToken</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 『框架模块』 ⇒ MyBatisPlus配置 -->
+            <dependency>
+                <groupId>cn.astriva</groupId>
+                <artifactId>Astriva-Framework-MyBatisPlus</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 『框架模块』 ⇒ SpringDoc配置 -->
+            <dependency>
+                <groupId>cn.astriva</groupId>
+                <artifactId>Astriva-Framework-SpringDoc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 『框架模块』 ⇒ Redis配置 -->
+            <dependency>
+                <groupId>cn.astriva</groupId>
+                <artifactId>Astriva-Framework-Redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 『框架模块』 ⇒ WebMvc配置 -->
+            <dependency>
+                <groupId>cn.astriva</groupId>
+                <artifactId>Astriva-Framework-WebMvc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 『服务模块』 ⇒ 认证服务 -->
+            <dependency>
+                <groupId>cn.astriva</groupId>
+                <artifactId>Astriva-Service-Auth</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 『服务模块』 ⇒ 文件服务 -->
+            <dependency>
+                <groupId>cn.astriva</groupId>
+                <artifactId>Astriva-Service-File</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

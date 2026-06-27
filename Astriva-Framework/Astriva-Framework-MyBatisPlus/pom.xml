@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.astriva</groupId>
+        <artifactId>Astriva-Framework</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>Astriva-Framework-MyBatisPlus</artifactId>
+    <description>『星驰』MyBatisPlus子模块 —— 提供MyBatisPlus的集成支持</description>
+
+    <!-- 依赖管理 -->
+    <dependencies>
+        <!-- MyBatisPlus：提供MyBatisPlus的集成支持 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+        </dependency>
+        <!-- MyBatisPlus SQL解析器：提供SQL解析功能及相关插件工具 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
+        </dependency>
+        <!-- WebMvc配置 -->
+        <dependency>
+            <groupId>cn.astriva</groupId>
+            <artifactId>Astriva-Framework-WebMvc</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+</project>

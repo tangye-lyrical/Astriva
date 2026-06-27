@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.astriva</groupId>
+        <artifactId>Astriva-Service</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>Astriva-Service-Auth</artifactId>
+    <description>『星驰』服务模块 —— 提供认证相关的业务逻辑</description>
+
+    <!-- 依赖管理 -->
+    <dependencies>
+        <!-- 『框架模块』 ⇒ SaToken配置 -->
+        <dependency>
+            <groupId>cn.astriva</groupId>
+            <artifactId>Astriva-Framework-SaToken</artifactId>
+        </dependency>
+        <!-- 『框架模块』 ⇒ MyBatisPlus配置 -->
+        <dependency>
+            <groupId>cn.astriva</groupId>
+            <artifactId>Astriva-Framework-MyBatisPlus</artifactId>
+        </dependency>
+        <!-- 『框架模块』 ⇒ SpringDoc配置 -->
+        <dependency>
+            <groupId>cn.astriva</groupId>
+            <artifactId>Astriva-Framework-SpringDoc</artifactId>
+        </dependency>
+        <!-- 『框架模块』 ⇒ Redis配置 -->
+        <dependency>
+            <groupId>cn.astriva</groupId>
+            <artifactId>Astriva-Framework-Redis</artifactId>
+        </dependency>
+    </dependencies>
+</project>

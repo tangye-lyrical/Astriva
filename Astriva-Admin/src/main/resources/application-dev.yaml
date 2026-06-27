@@ -1,0 +1,75 @@
+# =====================================
+# 开发环境配置
+# =====================================
+
+# 服务器配置
+server:
+  # 默认端口
+  port: 8080
+  # 服务器地址
+  address: localhost
+
+# Spring 配置
+spring:
+  # SQL数据源配置
+  datasource:
+    # 数据库连接配置
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:astriva}?useSSL=false&serverTimezone=UTC
+    # 数据库用户名
+    username: ${DB_USERNAME:root}
+    # 数据库密码
+    password: ${DB_PASSWORD:123456}
+    # 数据库驱动类
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库连接池配置
+    hikari:
+      # 连接池最大连接数
+      maximum-pool-size: 10
+      # 连接池最小连接数
+      minimum-idle: 5
+      # 连接池最大空闲时间
+      idle-timeout: 60000
+      # 连接池最大等待时间
+      connection-timeout: 30000
+  # NoSQL 配置
+  data:
+    # Redis 配置
+    redis:
+      # Redis 主机地址
+      host: ${REDIS_HOST:localhost}
+      # Redis 端口
+      port: ${REDIS_PORT:6379}
+      # Redis 密码
+      password: ${REDIS_PASSWORD:123456}
+      # Redis 数据库索引
+      database: ${REDIS_DATABASE:0}
+      # Redis 连接超时时间
+      timeout: ${REDIS_TIMEOUT:60000}
+      # Redis 连接池配置
+      lettuce.pool:
+          # 连接池最大连接数
+          max-active: 200
+          # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-wait: -1ms
+          # 连接池中的最大空闲连接
+          max-idle: 10
+          # 连接池中的最小空闲连接
+          min-idle: 0
+
+# mybatis plus 配置
+mybatis-plus:
+  # MyBatis 配置项
+  configuration:
+    # 开启日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# Sa-Token 配置
+sa-token:
+  # token 有效期（单位：秒）
+  timeout: 2592000
+  # token 最低活跃频率（单位：秒）
+  active-timeout: -1
+  # 输出操作日志
+  is-color-log: true
+  # JWT 签名密钥
+  jwt-secret-key: ${JWT_SECRET_KEY:astriva_jwt_secret_key_2026}

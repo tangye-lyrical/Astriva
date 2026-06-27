@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.astriva</groupId>
+        <artifactId>Astriva</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>Astriva-Framework</artifactId>
+    <packaging>pom</packaging>
+    <description>『星驰』框架模块 —— 提供基础的框架结构、组件、工具等</description>
+
+    <!-- 子模块管理 -->
+    <modules>
+        <!-- SaToken -->
+        <module>Astriva-Framework-SaToken</module>
+        <!-- MyBatisPlus -->
+        <module>Astriva-Framework-MyBatisPlus</module>
+        <!-- SpringDoc -->
+        <module>Astriva-Framework-SpringDoc</module>
+        <module>Astriva-Framework-Redis</module>
+        <module>Astriva-Framework-WebMvc</module>
+    </modules>
+
+    <!-- 依赖管理 -->
+    <dependencies>
+        <!-- Lombok：简化代码的编写 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- 公共模块 -->
+        <dependency>
+            <groupId>cn.astriva</groupId>
+            <artifactId>Astriva-Common</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,73 @@
+# 服务器配置
+server:
+  # 默认端口
+  port: 8080
+
+# Spring 配置
+spring:
+  # 应用配置
+  application:
+    name: Astriva
+  # 启用开发环境
+  profiles:
+    active: dev
+
+# mybatis plus 配置
+mybatis-plus:
+  # 配置 XML 映射文件
+  mapper-locations: classpath:mapper/*.xml
+  # 类型别名包路径 —— 配置后 Mapper 中可直接写类名无需全路径
+  type-aliases-package: cn.astriva.**.entity
+  # MyBatis 配置项
+  configuration:
+    # 开启下划线映射
+    map-underscore-to-camel-case: true
+    # 调用 setter 处理 null 值，避免部分字段结果映射丢失
+    call-setters-on-nulls: true
+  # 全局配置项
+  global-config:
+    # 关闭 banner
+    banner: false
+    # 逻辑删除配置项
+    db-config:
+      # 逻辑删除字段
+      logic-delete-field: is_deleted
+      # 逻辑删除值
+      logic-delete-value: 1
+      # 逻辑未删除值
+      logic-not-delete-value: 0
+      # 主键生成策略 —— assign_id 使用雪花算法，适合分布式场景
+      id-type: assign_id
+      # 更新策略 —— 只更新非 null 字段，避免误清空已有数据
+      update-strategy: not_null
+
+# Sa-Token 配置 (文档: https://sa-token.cc)
+sa-token:
+  # token 名称
+  token-name: Authorization
+  # 允许同一账号多地同时登录
+  is-concurrent: true
+  # 在多人登录同一账号时，不共用一个 token
+  is-share: false
+  # token 风格 —— 使用 JWT 模式
+  token-style: jwt
+  # 前后端分离时，关闭 cookie 读取，改为 header 模式
+  is-read-cookie: false
+  is-read-header: true
+  # 请求头中 token 的前缀
+  token-prefix: Bearer
+
+# SpringDoc 配置 (文档: https://springdoc.org)
+springdoc:
+  # API 文档路径
+  api-docs:
+    path: /v3/api-docs
+  # Swagger UI 路径
+  swagger-ui:
+    path: /swagger-ui.html
+    # 默认展开标签
+    doc-expansion: list
+    # 标签排序
+    tags-sorter: alpha
+    # 操作排序
+    operations-sorter: method

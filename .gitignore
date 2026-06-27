@@ -1,0 +1,113 @@
+### === Java === ###
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+### === Maven === ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.properties
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### === IDE === ###
+# IntelliJ IDEA
+.idea/
+*/test/
+*.iws
+*.iml
+*.ipr
+out/
+.idea_modules/
+
+# 测试
+test-output/
+
+# Eclipse
+.settings/
+.project
+.classpath
+*.classpath
+*.project
+*.springBeans
+
+# NetBeans
+nbproject/
+nb-configuration.xml
+*.bak
+
+# VS Code
+.vscode/
+.factorypath
+
+### === OS === ###
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.fuse_hidden*
+
+### === Logs === ###
+*.log
+logs/
+
+### === Spring Boot Devtools === ###
+.springBeans
+
+### === Others === ###
+# Package files
+*.7z
+*.dmg
+*.lz
+*.xz
+*.gz
+*.bz2
+
+# Temp files
+*.tmp
+*.swp
+*.swo
+*.orig
+*.old
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Docker
+docker-compose.override.yml
+
+# Node (if any frontend resources are in repo)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.surefire-*
