@@ -25,7 +25,6 @@ buildNumber.properties
 ### === IDE === ###
 # IntelliJ IDEA
 .idea/
-*/test/
 *.iws
 *.iml
 *.ipr
@@ -34,6 +33,9 @@ out/
 
 # 测试
 test-output/
+# 忽略所有测试源代码
+src/test/
+**/src/test/
 
 # Eclipse
 .settings/

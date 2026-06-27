@@ -73,3 +73,12 @@ sa-token:
   is-color-log: false
   # JWT 签名密钥
   jwt-secret-key: ${JWT_SECRET_KEY}
+
+# SpringDoc 配置
+springdoc:
+  # 关闭 API 文档
+  api-docs:
+    enabled: false
+  # 关闭 Swagger UI
+  swagger-ui:
+    enabled: false

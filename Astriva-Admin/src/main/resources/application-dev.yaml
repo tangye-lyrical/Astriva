@@ -73,3 +73,12 @@ sa-token:
   is-color-log: true
   # JWT 签名密钥
   jwt-secret-key: ${JWT_SECRET_KEY:astriva_jwt_secret_key_2026}
+
+# SpringDoc 配置
+springdoc:
+  # 开启 API 文档
+  api-docs:
+    enabled: true
+  # 开启 Swagger UI
+  swagger-ui:
+    enabled: true
