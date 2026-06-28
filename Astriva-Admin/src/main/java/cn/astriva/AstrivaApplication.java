@@ -2,6 +2,7 @@ package cn.astriva;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * 星驰快速开发模板启动类
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Mr. Tao
  */
 @SpringBootApplication
+@EnableAspectJAutoProxy(exposeProxy = true)
 public class AstrivaApplication {
 
 	public static void main(String[] args) {

@@ -39,6 +39,11 @@
             <groupId>cn.astriva</groupId>
             <artifactId>Astriva-Common</artifactId>
         </dependency>
+        <!-- Hutool核心工具类 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -9,7 +9,11 @@ import cn.astriva.entity.CurrentEntity;
  * @author 棠野·Lyrical
  */
 public class CurrentHolder {
-    private static final ThreadLocal<CurrentEntity> threadLocal = new ThreadLocal<>();
+    /**
+     * 当前上下文线程
+     * <p>实现 InheritableThreadLocal，确保子线程继承父线程的上下文</p>
+     */
+    private static final ThreadLocal<CurrentEntity> threadLocal = new InheritableThreadLocal<>();
 
     /**
      * 设置当前登录用户实体

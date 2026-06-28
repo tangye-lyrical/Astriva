@@ -36,6 +36,8 @@ public class JwtCurrentHandler implements HandlerInterceptor {
         CurrentEntity current = new CurrentEntity();
         current.setUserId(StpUtil.getLoginIdAsLong());
         current.setUsername((String) StpUtil.getExtra("username"));
+        current.setDeptId((Long) StpUtil.getExtra("deptId"));
+        current.setNickname((String) StpUtil.getExtra("nickname"));
 
         // 将获取的数据存储至上下文持有者中
         CurrentHolder.setCurrentEntity(current);

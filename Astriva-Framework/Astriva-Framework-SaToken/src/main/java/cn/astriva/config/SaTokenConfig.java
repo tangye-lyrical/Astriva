@@ -1,14 +1,19 @@
 package cn.astriva.config;
 
+import cn.astriva.annotation.NotLogin;
 import cn.astriva.handler.JwtCurrentHandler;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.jwt.StpLogicJwtForSimple;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.NonNull;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -23,17 +28,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SaTokenConfig implements WebMvcConfigurer {
     /**
-     * 白名单路径
+     * 基础设施白名单路径
+     *
+     * <p>这些路径不是 Controller 方法（如 Swagger、静态资源），无法标注
+     * {@link NotLogin @Anonymous} 注解，因此在这里统一放行。
+     * Controller 层的匿名接口请使用 {@code @Anonymous} 注解，无需修改本配置。
      */
     private final List<String> patterns = List.of(
-            // 登录相关接口
-            "/auth/login",
-            "/auth/register",
-            // Swagger 相关接口
+            // Swagger / SpringDoc 相关
             "/swagger-ui/**",
             "/v3/api-docs/**",
-            // 静态资源
             "/doc.html",
+            // 静态资源
             "/favicon.ico",
             "/error",
             "/static/**"
@@ -54,24 +60,38 @@ public class SaTokenConfig implements WebMvcConfigurer {
     /**
      * 注册 Sa-Token 路由拦截器
      * <p>
-     * SaInterceptor 是 Sa-Token 的路由拦截器，它会根据 SaRouter 定义的规则
-     * 对请求进行匹配和处理。每条规则包含三个要素：
-     *   - match(pattern, handler)  ：匹配路径并执行处理
-     *   - notMatch(pattern, handler)：排除路径并执行处理
-     *   - check(checker)            ：无条件执行安全检查
+     * 白名单处理策略：
+     * <ol>
+     *   <li><b>基础设施路径</b>（Swagger、静态资源等）— 通过 {@code patterns} 列表静态声明放行</li>
+     *   <li><b>标注了 {@link NotLogin @Anonymous} 的接口</b> — 在 SaInterceptor 的
+     *       {@code preHandle} 中优先检查注解，命中则直接返回 {@code true}，跳过登录校验</li>
+     *   <li><b>其余所有路径</b> — 必须登录</li>
+     * </ol>
      *
      * @param registry 拦截器注册表
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 校验是否登录
+        // Sa-Token 路由拦截（子类化以支持 @Anonymous 注解）
         registry.addInterceptor(new SaInterceptor(handle -> {
-            // 放行白名单
+            // 放行基础设施白名单
             SaRouter.notMatch(patterns).back();
 
-            // 登录校验
+            // 登录校验（其余所有路径）
             SaRouter.match("/**", r -> StpUtil.checkLogin());
-        })).addPathPatterns("/**");
+        }) {
+            @Override
+            public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
+                // 检查 @Anonymous 注解（方法级 / 类级），命中则跳过 SaInterceptor 全部逻辑
+                if (handler instanceof HandlerMethod hm) {
+                    if (hm.hasMethodAnnotation(NotLogin.class) || hm.getBeanType().isAnnotationPresent(NotLogin.class)) {
+                        return true;
+                    }
+                }
+                return super.preHandle(request, response, handler);
+            }
+        }).addPathPatterns("/**");
+
         // 注册 JWT 上下文数据处理器
         registry.addInterceptor(jwtCurrentHandler).addPathPatterns("/**");
     }

@@ -22,4 +22,12 @@ public class CurrentEntity implements Serializable {
      * 用户名
      */
     private String username;
+    /**
+     * 部门ID -> 数据权限过滤
+     */
+    private Long deptId;
+    /**
+     * 昵称
+     */
+    private String nickname;
 }
