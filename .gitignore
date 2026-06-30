@@ -115,5 +115,4 @@ coverage/
 .surefire-*
 
 # 其他
-PROJECT-ANALYSIS.md
 .db
