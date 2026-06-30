@@ -25,11 +25,5 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-jsqlparser</artifactId>
         </dependency>
-        <!-- WebMvc配置 -->
-        <dependency>
-            <groupId>cn.astriva</groupId>
-            <artifactId>Astriva-Framework-WebMvc</artifactId>
-            <optional>true</optional>
-        </dependency>
     </dependencies>
 </project>

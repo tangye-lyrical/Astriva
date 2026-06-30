@@ -1,6 +1,6 @@
 package cn.astriva.handler;
 
-import cn.astriva.entity.CurrentEntity;
+import cn.astriva.basic.CurrentEntity;
 import cn.astriva.utils.CurrentHolder;
 import cn.dev33.satoken.stp.StpUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,7 +36,7 @@ public class JwtCurrentHandler implements HandlerInterceptor {
         CurrentEntity current = new CurrentEntity();
         current.setUserId(StpUtil.getLoginIdAsLong());
         current.setUsername((String) StpUtil.getExtra("username"));
-        current.setDeptId((Long) StpUtil.getExtra("deptId"));
+        current.setDeptId(Long.valueOf(StpUtil.getExtra("deptId").toString()));
         current.setNickname((String) StpUtil.getExtra("nickname"));
 
         // 将获取的数据存储至上下文持有者中

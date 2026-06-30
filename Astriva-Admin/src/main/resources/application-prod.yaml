@@ -14,7 +14,7 @@ spring:
   # SQL数据源配置
   datasource:
     # 数据库连接配置
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
     # 数据库用户名
     username: ${DB_USERNAME}
     # 数据库密码

@@ -35,5 +35,10 @@
             <groupId>cn.astriva</groupId>
             <artifactId>Astriva-Framework-Redis</artifactId>
         </dependency>
+        <!-- Hutool图片验证码生成 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-captcha</artifactId>
+        </dependency>
     </dependencies>
 </project>

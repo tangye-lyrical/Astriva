@@ -1,7 +1,6 @@
 package cn.astriva.utils;
 
-import cn.astriva.entity.CurrentEntity;
-
+import cn.astriva.basic.CurrentEntity;
 
 /**
  * 当前上下文持有者数据

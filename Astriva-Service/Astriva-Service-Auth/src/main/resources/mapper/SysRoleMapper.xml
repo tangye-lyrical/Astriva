@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.astriva.auth.mapper.SysRoleMapper">
+    <!-- 根据登录ID查询角色标识列表 -->
+    <select id="selectListByUserId" resultType="java.lang.String">
+        select role.role_code
+        from sys_role role
+                 join sys_user_role ur on role.id = ur.role_id
+        where ur.user_id = #{userId}
+    </select>
+</mapper>

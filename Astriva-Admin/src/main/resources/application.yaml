@@ -12,6 +12,14 @@ spring:
   profiles:
     active: dev
 
+# 全局日志配置
+logging:
+  level:
+    # 将所有服务模块日志级别设置为 debug
+    cn.astriva.*: debug
+    # 将MyBatis Plus 日志级别设置为 debug
+    com.baomidou.mybatisplus: debug
+
 # mybatis plus 配置
 mybatis-plus:
   # 配置 XML 映射文件

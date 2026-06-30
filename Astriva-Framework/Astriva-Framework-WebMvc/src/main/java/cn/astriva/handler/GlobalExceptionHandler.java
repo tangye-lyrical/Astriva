@@ -1,5 +1,6 @@
 package cn.astriva.handler;
 
+import cn.astriva.basic.ServiceException;
 import cn.astriva.result.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -34,6 +35,20 @@ public class GlobalExceptionHandler {
                 .reduce((a, b) -> a + "; " + b)
                 .orElse("参数校验失败");
         return AjaxResult.error(400, msg);
+    }
+
+    /**
+     * 处理业务异常
+     *
+     * <p>当业务层抛出 {@link ServiceException} 时捕获。
+     * 直接返回业务异常的状态码和消息。</p>
+     *
+     * @param e ServiceException 实例
+     * @return 业务异常的状态码和消息
+     */
+    @ExceptionHandler(ServiceException.class)
+    public AjaxResult<Void> handleServiceException(ServiceException e) {
+        return AjaxResult.error(e.getCode(), e.getMessage());
     }
 
     /**

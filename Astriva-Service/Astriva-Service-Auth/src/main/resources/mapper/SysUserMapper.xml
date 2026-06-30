@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.astriva.auth.mapper.SysUserMapper">
+    <!-- 根据登录账号查询用户 -->
+    <select id="selectOneByUsername" resultType="cn.astriva.auth.pojo.entity.SysUser">
+        select id,
+               dept_id,
+               username,
+               nickname,
+               user_type,
+               avatar,
+               password,
+               status,
+               del_flag
+        from sys_user
+        where username = #{username} or phone = #{username} or email = #{username}
+    </select>
+</mapper>

@@ -38,6 +38,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
             // Swagger / SpringDoc 相关
             "/swagger-ui/**",
             "/v3/api-docs/**",
+            "/v3/api-docs",
             "/doc.html",
             // 静态资源
             "/favicon.ico",
@@ -74,11 +75,10 @@ public class SaTokenConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // Sa-Token 路由拦截（子类化以支持 @Anonymous 注解）
         registry.addInterceptor(new SaInterceptor(handle -> {
-            // 放行基础设施白名单
-            SaRouter.notMatch(patterns).back();
-
-            // 登录校验（其余所有路径）
-            SaRouter.match("/**", r -> StpUtil.checkLogin());
+            // 登录校验（排除基础设施白名单）
+            SaRouter.match("/**")
+                    .notMatch(patterns.toArray(new String[0]))
+                    .check(r -> StpUtil.checkLogin());
         }) {
             @Override
             public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {

@@ -3,12 +3,18 @@ package cn.astriva.config;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.time.Duration;
 
 /**
  * Redis 配置类
@@ -51,5 +57,33 @@ public class RedisConfig {
 
         template.afterPropertiesSet();
         return template;
+    }
+
+    /**
+     * 配置 Redis 缓存管理器
+     *
+     * @param factory Redis 连接工厂，由 Spring Boot 自动注入
+     * @return 配置完成的 RedisCacheManager
+     */
+    @Bean
+    public CacheManager cacheManager(RedisConnectionFactory factory) {
+        // 配置 Jackson 序列化器（与 RedisTemplate 保持一致，避免反序列化报错）
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.activateDefaultTyping(
+                LaissezFaireSubTypeValidator.instance,
+                ObjectMapper.DefaultTyping.NON_FINAL,
+                JsonTypeInfo.As.PROPERTY);
+        Jackson2JsonRedisSerializer<Object> serializer =
+                new Jackson2JsonRedisSerializer<>(mapper, Object.class);
+
+        // 配置缓存序列化
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer))
+                .entryTtl(Duration.ofHours(1)); // 默认缓存存活 1 小时
+
+        return RedisCacheManager.builder(factory)
+                .cacheDefaults(config)
+                .build();
     }
 }

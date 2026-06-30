@@ -1,4 +1,4 @@
-package cn.astriva.entity;
+package cn.astriva.basic;
 
 import lombok.Data;
 
