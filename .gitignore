@@ -113,3 +113,7 @@ yarn-error.log*
 # Testing
 coverage/
 .surefire-*
+
+# 其他
+PROJECT-ANALYSIS.md
+.db
