@@ -22,7 +22,9 @@
         <module>Astriva-Framework-MyBatisPlus</module>
         <!-- SpringDoc -->
         <module>Astriva-Framework-SpringDoc</module>
+        <!-- Redis -->
         <module>Astriva-Framework-Redis</module>
+        <!-- WebMvc -->
         <module>Astriva-Framework-WebMvc</module>
     </modules>
 

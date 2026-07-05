@@ -30,7 +30,7 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return 角色标识列表
      */
     @Override
-    @Cacheable(value = "Astriva:roles:", key = "#userId")
+    @Cacheable(value = "Astriva:roles", key = "#userId")
     public List<String> findRoleListByLoginId(Long userId) {
         return sysRoleMapper.selectListByUserId(userId);
     }

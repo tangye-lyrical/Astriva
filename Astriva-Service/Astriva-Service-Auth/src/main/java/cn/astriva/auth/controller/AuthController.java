@@ -1,14 +1,14 @@
 package cn.astriva.auth.controller;
 
-import cn.astriva.annotation.NotLogin;
+import cn.astriva.st.annotation.NotLogin;
 import cn.astriva.auth.pojo.dto.SysLoginDto;
 import cn.astriva.auth.pojo.entity.Captcha;
 import cn.astriva.auth.pojo.entity.SysLogin;
 import cn.astriva.auth.pojo.vo.CreateCaptchaVo;
 import cn.astriva.auth.service.CaptchaService;
 import cn.astriva.auth.service.SysUserService;
-import cn.astriva.basic.ServiceException;
-import cn.astriva.result.AjaxResult;
+import cn.astriva.common.basic.ServiceException;
+import cn.astriva.common.result.AjaxResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

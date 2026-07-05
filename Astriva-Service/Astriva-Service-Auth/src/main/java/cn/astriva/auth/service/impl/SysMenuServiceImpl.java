@@ -30,7 +30,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @return 权限码集合
      */
     @Override
-    @Cacheable(value = "Astriva:permissions:", key = "#userId")
+    @Cacheable(value = "Astriva:permissions", key = "#userId")
     public List<String> findPermissionListByLoginId(Long userId) {
         return sysMenuMapper.findMenuCodeByUserId(userId);
     }

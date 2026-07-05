@@ -7,14 +7,14 @@ server:
   # 默认端口
   port: 8080
   # 服务器地址
-  address: ${SERVER_ADDRESS}
+  address: ${SERVER_ADDRESS:0.0.0.0}
 
 # Spring 配置
 spring:
   # SQL数据源配置
   datasource:
     # 数据库连接配置
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT:3306}/${DB_NAME}?useSSL=true&verifyServerCertificate=false&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true
     # 数据库用户名
     username: ${DB_USERNAME}
     # 数据库密码
@@ -38,13 +38,13 @@ spring:
       # Redis 主机地址
       host: ${REDIS_HOST}
       # Redis 端口
-      port: ${REDIS_PORT}
+      port: ${REDIS_PORT:6379}
       # Redis 密码
       password: ${REDIS_PASSWORD}
       # Redis 数据库索引
-      database: ${REDIS_DATABASE}
+      database: ${REDIS_DATABASE:0}
       # Redis 连接超时时间
-      timeout: ${REDIS_TIMEOUT}
+      timeout: ${REDIS_TIMEOUT:60000}
       # Redis 连接池配置
       lettuce.pool:
           # 连接池最大连接数

@@ -1,6 +1,6 @@
 package cn.astriva.auth.pojo.entity;
 
-import cn.astriva.basic.AuditEntity;
+import cn.astriva.mp.basic.AuditEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.*;

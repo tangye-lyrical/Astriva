@@ -19,6 +19,10 @@ logging:
     cn.astriva.*: debug
     # 将MyBatis Plus 日志级别设置为 debug
     com.baomidou.mybatisplus: debug
+    # 将Redis 日志级别设置为 debug
+    org.springframework.data.redis: debug
+    # 将Sa-Token 日志级别设置为 debug
+    cn.dev33.satoken: debug
 
 # mybatis plus 配置
 mybatis-plus:
@@ -64,6 +68,8 @@ sa-token:
   is-read-header: true
   # 请求头中 token 的前缀
   token-prefix: Bearer
+  # 是否开启自动续签
+  auto-renew: true
 
 # SpringDoc 配置 (文档: https://springdoc.org)
 springdoc:
