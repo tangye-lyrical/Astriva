@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/user")
-@Tag(name = "系统用户管理API")
+@Tag(name = "系统用户操作API")
 public class UserController {
     /**
      * 系统用户服务
