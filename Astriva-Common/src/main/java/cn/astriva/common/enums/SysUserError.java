@@ -20,6 +20,14 @@ public enum SysUserError implements IErrorCode {
      * 手机号格式异常 -> 手机号非法
      */
     PHONE_ERROR(400, "手机号格式异常，请检查后重试"),
+    /**
+     * 被修改的系统用户不存在 -> 用户不存在
+     */
+    USER_NOT_FOUND(400, "当前系统用户不存在"),
+    /**
+     * 更新密码时旧密码错误 -> 密码错误
+     */
+    PASSWORD_ERROR(400, "旧密码错误，请检查后重试"),
     ;
 
     /**

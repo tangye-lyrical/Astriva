@@ -1,9 +1,12 @@
 package cn.astriva.auth.controller;
 
 import cn.astriva.auth.pojo.dto.IUSysUserDto;
+import cn.astriva.auth.pojo.dto.SysUserUpdatePassDto;
+import cn.astriva.auth.pojo.entity.Captcha;
 import cn.astriva.auth.pojo.queryParam.SysUserQueryParam;
 import cn.astriva.auth.pojo.vo.SysUserInfoVo;
 import cn.astriva.auth.pojo.vo.SysUserPageVo;
+import cn.astriva.auth.service.CaptchaService;
 import cn.astriva.auth.service.SysUserService;
 import cn.astriva.common.basic.Create;
 import cn.astriva.common.basic.Update;
@@ -39,6 +42,10 @@ public class SysUserController {
      * 系统用户服务
      */
     private final SysUserService sysUserService;
+    /**
+     * 验证码服务
+     */
+    private final CaptchaService captchaService;
 
     /**
      * 系统用户退出登录
@@ -163,5 +170,42 @@ public class SysUserController {
         PageResult<SysUserPageVo> pageResult = sysUserService.pageSysUser(sysUserQueryParam);
 
         return AjaxResult.success("分页查询系统用户成功！", pageResult);
+    }
+
+    /**
+     * 管理员重置系统用户密码
+     *
+     * @param id 被重置用户的ID
+     */
+    @PostMapping("/reset/{id}")
+    @Operation(summary = "管理员重置系统用户密码Api")
+    @SaCheckPermission(value = PermissionConstant.SYS_USER_UPDATE)
+    public AjaxResult<Void> resetSysUserPassword(@PathVariable Long id) {
+        // 执行重置
+        sysUserService.resetSysUserPassword(id);
+
+        return AjaxResult.success("重置密码成功！");
+    }
+
+    /**
+     * 用户修改密码
+     *
+     * @param updatePassDto 修改密码表单
+     */
+    @PostMapping("/update")
+    @Operation(summary = "用户修改密码Api")
+    public AjaxResult<Void> updateSysUserPassword(@RequestBody @Validated SysUserUpdatePassDto updatePassDto) {
+        // 校验验证码 => 使用builder模式创建验证码对象，若校验失败则抛出异常
+        captchaService.validateCaptcha(
+                Captcha.builder()
+                        .captchaKey(updatePassDto.getCaptchaKey())
+                        .inputCaptcha(updatePassDto.getInputCaptcha())
+                        .build());
+        // 获取当前用户ID
+        Long userId = CurrentHolder.getCurrentEntity().getUserId();
+        // 执行修改
+        sysUserService.updateSysUserPassword(updatePassDto, userId);
+
+        return AjaxResult.success("修改密码成功！");
     }
 }

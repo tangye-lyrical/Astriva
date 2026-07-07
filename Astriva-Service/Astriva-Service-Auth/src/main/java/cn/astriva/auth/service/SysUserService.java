@@ -2,6 +2,7 @@ package cn.astriva.auth.service;
 
 import cn.astriva.auth.pojo.dto.IUSysUserDto;
 import cn.astriva.auth.pojo.dto.SysLoginDto;
+import cn.astriva.auth.pojo.dto.SysUserUpdatePassDto;
 import cn.astriva.auth.pojo.entity.SysLogin;
 import cn.astriva.auth.pojo.queryParam.SysUserQueryParam;
 import cn.astriva.auth.pojo.vo.SysUserInfoVo;
@@ -75,4 +76,17 @@ public interface SysUserService {
      * @return 系统用户分页结果
      */
     PageResult<SysUserPageVo> pageSysUser(SysUserQueryParam sysUserQueryParam);
+
+    /**
+     * 重置系统用户密码
+     * @param id 用户ID
+     */
+    void resetSysUserPassword(Long id);
+
+    /**
+     * 系统用户修改密码
+     * @param updatePassDto 修改密码表单
+     * @param id 用户ID
+     */
+    void updateSysUserPassword(SysUserUpdatePassDto updatePassDto, Long id);
 }

@@ -3,17 +3,19 @@ package cn.astriva.auth.service.impl;
 import cn.astriva.auth.mapper.SysUserMapper;
 import cn.astriva.auth.pojo.dto.IUSysUserDto;
 import cn.astriva.auth.pojo.dto.SysLoginDto;
+import cn.astriva.auth.pojo.dto.SysUserUpdatePassDto;
 import cn.astriva.auth.pojo.entity.SysLogin;
 import cn.astriva.auth.pojo.entity.SysUser;
 import cn.astriva.auth.pojo.queryParam.SysUserQueryParam;
 import cn.astriva.auth.pojo.vo.SysUserInfoVo;
 import cn.astriva.auth.pojo.vo.SysUserPageVo;
 import cn.astriva.auth.service.SysUserService;
-import cn.astriva.common.basic.ServiceException;
 import cn.astriva.common.constant.SysUserConstant;
 import cn.astriva.common.enums.StatusEnum;
 import cn.astriva.common.enums.SysLoginError;
+import cn.astriva.common.enums.SysUserError;
 import cn.astriva.common.exceptions.SysLoginException;
+import cn.astriva.common.exceptions.UpdateException;
 import cn.astriva.common.result.PageResult;
 import cn.astriva.common.utils.CurrentHolder;
 import cn.astriva.st.utils.SaTokenUtil;
@@ -142,7 +144,7 @@ public class SysUserServiceImpl implements SysUserService {
         log.info("管理员{}修改id为{}的系统用户: {}", CurrentHolder.getCurrentEntity().getUsername(), userId, sysUserDto.getUsername());
         // 校验被修改的用户是否存在
         if (ObjUtil.isNull(sysUserMapper.selectById(userId))) {
-            throw new ServiceException("被修改的系统用户不存在");
+            throw new UpdateException(SysUserError.USER_NOT_FOUND);
         }
         // 将dto实体转换为实体类
         SysUser sysUser = BeanUtil.copyProperties(sysUserDto, SysUser.class);
@@ -191,5 +193,51 @@ public class SysUserServiceImpl implements SysUserService {
         IPage<SysUserPageVo> result = sysUserMapper.selectVoPage(page, sysUserQueryParam);
 
         return new PageResult<>(result.getTotal(), result.getRecords());
+    }
+
+    /**
+     * 管理员重置系统用户密码
+     *
+     * @param id 用户ID
+     */
+    @Override
+    public void resetSysUserPassword(Long id) {
+        // 校验被修改的用户是否存在
+        if (ObjUtil.isNull(sysUserMapper.selectById(id))) {
+            throw new UpdateException(SysUserError.USER_NOT_FOUND);
+        }
+
+        // 执行修改
+        sysUserMapper.updateById(SysUser.builder()
+                .id(id)
+                .password(BCrypt.hashpw(SysUserConstant.DEFAULT_PASSWORD))
+                .build());
+    }
+
+    /**
+     * 系统用户修改密码
+     *
+     * @param updatePassDto 修改密码表单
+     * @param id 用户ID
+     */
+    @Override
+    public void updateSysUserPassword(SysUserUpdatePassDto updatePassDto, Long id) {
+        log.debug("系统用户{}修改密码", id);
+
+        // 获取当前用户信息
+        SysUser sysUser = sysUserMapper.selectById(id);
+        // 校验被修改的用户是否存在
+        if (ObjUtil.isNull(sysUser)) {
+            throw new UpdateException(SysUserError.USER_NOT_FOUND);
+        }
+        // 校验旧密码是否正确
+        if (!BCrypt.checkpw(updatePassDto.getOldPassword(), sysUser.getPassword())) {
+            throw new UpdateException(SysUserError.PASSWORD_ERROR);
+        }
+        // 执行修改
+        sysUserMapper.updateById(SysUser.builder()
+                .id(id)
+                .password(BCrypt.hashpw(updatePassDto.getNewPassword()))
+                .build());
     }
 }
