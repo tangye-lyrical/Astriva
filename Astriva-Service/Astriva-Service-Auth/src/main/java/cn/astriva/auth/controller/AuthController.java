@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
-@Tag(name = "系统用户验证Api")
+@Tag(name = "系统用户验证API")
 public class AuthController {
     /**
      * 系统用户服务
@@ -47,7 +47,7 @@ public class AuthController {
      */
     @NotLogin
     @PostMapping("/login")
-    @Operation(summary = "系统用户登录Api")
+    @Operation(summary = "系统用户登录API")
     public AjaxResult<SysLogin> sysLogin(@Valid @RequestBody SysLoginDto sysLoginDto) {
         log.debug("系统用户{}正在登录", sysLoginDto.getUsername());
 
@@ -80,7 +80,7 @@ public class AuthController {
      */
     @NotLogin
     @PostMapping("/captcha")
-    @Operation(summary = "获取图片验证码Api")
+    @Operation(summary = "获取图片验证码API")
     public AjaxResult<CreateCaptchaVo> getImageCaptcha() {
         // 生成图片验证码
         CreateCaptchaVo captcha = captchaService.createImageCaptcha();
